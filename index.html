@@ -3,65 +3,89 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BlueTeck CI</title>
+  <title>Project Expert – Boutique Bluetek</title>
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    /* ——— Reset & palette ——— */
+    /* ——— PALETTE BLUETEK ——— */
     :root {
-      --primary: #395AA9;
-      --danger: #e53935;
-      --bg: #f5f6fa;
-      --txt: #333;
+      --primary   : #0059c7;  /* Bleu Bluetek */
+      --primary-d : #034aa4;
+      --accent    : #00bcd4;  /* cyan léger pour détails */
+      --danger    : #e53935;
+      --bg        : #f2f5fb;  /* gris très clair bleuté */
+      --txt       : #202124;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: Arial, Helvetica, sans-serif; background: var(--bg); color: var(--txt); }
 
-    /* ——— Header / navbar ——— */
-    header { position: sticky; top: 0; background: #fff; box-shadow: 0 2px 4px rgba(0,0,0,.1); z-index: 10; }
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
-    nav { display: flex; align-items: center; justify-content: space-between; padding: .75rem 0; }
-    .logo { font-weight: 700; font-size: 1.3rem; color: var(--primary); text-decoration: none; }
-    .categories { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .categories a { color: var(--txt); text-decoration: none; font-weight: 500; }
-    .cart-btn { position: relative; background: none; border: none; font-size: 1.3rem; cursor: pointer; }
-    .cart-count { position: absolute; top: -6px; right: -10px; background: var(--danger); color: #fff; border-radius: 50%; font-size: .75rem; padding: 0 6px; }
+    /* ——— RESET ——— */
+    *,*::before,*::after { box-sizing: border-box; }
+    body { margin:0; font-family:'Poppins',sans-serif; background:var(--bg); color:var(--txt); min-height:100vh; }
+    img { display:block; max-width:100%; }
+    a { color:inherit; text-decoration:none; }
 
-    /* ——— Product grid ——— */
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1rem; padding: 2rem 0; }
-    .card { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,.05); display: flex; flex-direction: column; }
-    .card img { width: 100%; height: 160px; object-fit: cover; }
-    .card .info { padding: .75rem; flex-grow: 1; display: flex; flex-direction: column; }
-    .card h3 { font-size: 1rem; margin-bottom: .25rem; }
-    .price { margin-top: auto; font-weight: 700; }
-    .badge { position: absolute; top: 8px; left: 8px; background: var(--primary); color: #fff; font-size: .7rem; padding: 2px 6px; border-radius: 4px; }
-    .badge.sale { background: var(--danger); }
-    .badge.out { background: #616161; }
-    .btn { margin-top: .5rem; padding: .5rem; border: none; border-radius: 4px; background: var(--primary); color: #fff; cursor: pointer; font-size: .9rem; }
-    .btn:disabled { background: #888; cursor: not-allowed; }
+    /* ——— HEADER ——— */
+    header { position:sticky; top:0; background:#fff; box-shadow:0 2px 6px rgba(0,0,0,.08); z-index:20; }
+    .container { max-width:1200px; margin:auto; padding:0 1rem; }
+    nav { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; padding:.8rem 0; }
+    .logo { display:flex; align-items:center; gap:.4rem; font-weight:700; font-size:1.35rem; color:var(--primary); }
+    .logo img { width:34px; height:34px; }
+    .categories { display:flex; gap:1rem; flex-wrap:wrap; font-size:.9rem; }
+    .categories a { font-weight:500; position:relative; }
+    .categories a::after { content:""; position:absolute; left:0; bottom:-3px; width:0%; height:2px; background:var(--primary); transition:.3s; }
+    .categories a:hover::after { width:100%; }
 
-    /* ——— Cart side‑panel ——— */
-    #cart-modal { position: fixed; top: 0; right: 0; width: 300px; height: 100vh; background: #fff; box-shadow: -2px 0 6px rgba(0,0,0,.2); transform: translateX(100%); transition: transform .3s ease; display: flex; flex-direction: column; z-index: 100; }
-    #cart-modal.open { transform: translateX(0); }
-    #cart-modal header { padding: 1rem; border-bottom: 1px solid #eee; font-weight: 700; }
-    .cart-items { flex-grow: 1; overflow: auto; }
-    .cart-item { display: flex; justify-content: space-between; padding: .5rem 1rem; border-bottom: 1px solid #f1f1f1; font-size: .9rem; }
-    .cart-total { padding: 1rem; font-weight: 700; }
-    .cart-actions { padding: 1rem; border-top: 1px solid #eee; display: flex; gap: .5rem; }
-    .cart-actions button { flex: 1; padding: .5rem; border: none; border-radius: 4px; font-size: .9rem; cursor: pointer; }
-    .cart-actions .checkout { background: var(--primary); color: #fff; }
-    .cart-actions .clear { background: var(--danger); color: #fff; }
+    /* ——— CART BUTTON ——— */
+    .cart-btn { position:relative; background:none; border:none; cursor:pointer; font-size:1.5rem; color:var(--primary); }
+    .cart-count { position:absolute; top:-6px; right:-10px; background:var(--danger); color:#fff; border-radius:50%; font-size:.7rem; padding:0 6px; font-weight:600; }
+
+    /* ——— HERO BANNER ——— */
+    .hero { background:url('https://images.unsplash.com/photo-1527443154391-507e9dc6c5cc?auto=format&fit=crop&w=1500&q=80') center/cover fixed; height:220px; display:flex; align-items:center; justify-content:center; color:#fff; text-shadow:0 2px 6px rgba(0,0,0,.5); font-size:2rem; font-weight:700; letter-spacing:1px; }
+
+    /* ——— PRODUCT GRID ——— */
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:1.2rem; padding:2rem 0; }
+    .card { background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,.06); display:flex; flex-direction:column; transition:.25s; }
+    .card:hover { transform:translateY(-6px); box-shadow:0 8px 18px rgba(0,0,0,.1); }
+    .card-header { position:relative; }
+    .card img { width:100%; height:170px; object-fit:cover; }
+    .badge { position:absolute; top:10px; left:10px; background:var(--primary); color:#fff; font-size:.7rem; padding:2px 6px; border-radius:4px; font-weight:600; text-transform:uppercase; }
+    .badge.sale { background:var(--danger); }
+    .badge.out  { background:#616161; }
+
+    .info { padding:1rem; flex:1; display:flex; flex-direction:column; gap:.2rem; }
+    .info h3 { font-size:1rem; font-weight:600; min-height:40px; }
+    .price-tag { align-self:flex-start; background:#fff; border:2px solid var(--primary); border-radius:40px; padding:.3rem .7rem; font-weight:700; color:var(--primary); margin-top:.4rem; }
+
+    .btn { margin-top:auto; padding:.6rem; border:none; border-radius:6px; background:var(--primary); color:#fff; font-size:.9rem; font-weight:600; cursor:pointer; transition:.2s; }
+    .btn:hover:not(:disabled) { background:var(--primary-d); }
+    .btn:disabled { background:#9e9e9e; cursor:not-allowed; }
+
+    /* ——— CART PANEL ——— */
+    #cart-modal { position:fixed; top:0; right:0; width:320px; height:100vh; background:#fff; box-shadow:-2px 0 8px rgba(0,0,0,.2); transform:translateX(100%); transition:.3s ease; display:flex; flex-direction:column; z-index:40; }
+    #cart-modal.open { transform:translateX(0); }
+    #cart-modal header { background:var(--primary); color:#fff; padding:1rem; font-weight:700; letter-spacing:.5px; display:flex; justify-content:space-between; }
+    .cart-items { flex:1; overflow:auto; }
+    .cart-item { display:flex; justify-content:space-between; padding:.65rem 1rem; border-bottom:1px solid #f1f1f1; font-size:.9rem; }
+    .cart-total { padding:1rem; font-weight:700; }
+    .cart-actions { padding:1rem; border-top:1px solid #eee; display:flex; gap:.6rem; }
+    .cart-actions button { flex:1; padding:.65rem; border:none; border-radius:6px; font-size:.9rem; font-weight:600; cursor:pointer; }
+    .checkout { background:var(--accent); color:#fff; }
+    .clear { background:var(--danger); color:#fff; }
+
+    /* ——— FOOTER ——— */
+    footer { background:#fff; padding:1rem; text-align:center; font-size:.85rem; color:#555; box-shadow:0 -2px 4px rgba(0,0,0,.04); }
   </style>
 </head>
 <body>
-  <!-- ——— Navbar ——— -->
+  <!-- ——— HEADER ——— -->
   <header>
     <div class="container">
       <nav>
-        <a class="logo" href="#">Project Expert</a>
+        <a class="logo" href="#"><img src="https://raw.githubusercontent.com/aimeassamoidesire-maker/nj/main/bluetek_logo.png" alt="Bluetek">Bluetek</a>
         <div class="categories">
-          <a href="#">PC COMPLET</a>
-          <a href="#">COMPOSANTS PC</a>
+          <a href="#">PC COMPLET</a>
+          <a href="#">COMPOSANTS</a>
           <a href="#">ACCESSOIRES</a>
-          <a href="#">ÉCRAN</a>
+          <a href="#">ÉCRANS</a>
           <a href="#">AUDIO</a>
           <a href="#">ÉCLAIRAGE</a>
         </div>
@@ -70,85 +94,84 @@
     </div>
   </header>
 
-  <!-- ——— Product grid ——— -->
-  <div class="container">
-    <section class="grid" id="product-grid"><!-- Injecté par JS --></section>
-  </div>
+  <!-- ——— HERO ——— -->
+  <section class="hero">La Tech au meilleur prix</section>
 
-  <!-- ——— Cart panel ——— -->
+  <!-- ——— PRODUCT GRID ——— -->
+  <main class="container">
+    <section id="product-grid" class="grid"><!-- Injecté dynamiquement --></section>
+  </main>
+
+  <!-- ——— CART PANEL ——— -->
   <div id="cart-modal">
-    <header>Mon Panier</header>
-    <div class="cart-items" id="cart-items"></div>
-    <div class="cart-total" id="cart-total">Total : 0 CFA</div>
+    <header>
+      <span>Mon Panier</span>
+      <button style="background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer" onclick="cartModal.classList.remove('open')">✕</button>
+    </header>
+    <div id="cart-items" class="cart-items"></div>
+    <div id="cart-total" class="cart-total">Total : 0 CFA</div>
     <div class="cart-actions">
       <button class="checkout">Commander</button>
       <button class="clear" id="clear-cart">Vider</button>
     </div>
   </div>
 
-  <!-- ——— Demo JS (localStorage cart) ——— -->
+  <!-- ——— JS DEMO (local) ——— -->
   <script>
-    // Démo : liste produit mockée
-    const products = [
-      { id: 1, name: "Intel Core i7‑12700K",  price: 170000, img: "https://via.placeholder.com/400x300?text=i7‑12700K",  sale: true,  stock: true  },
-      { id: 2, name: "AMD Ryzen 7 5800XT",   price: 135000, img: "https://via.placeholder.com/400x300?text=Ryzen+7+5800XT", sale: false, stock: true  },
-      { id: 3, name: "ASUS RTX 4090 – 24GB", price: 1365000, img: "https://via.placeholder.com/400x300?text=RTX+4090",      sale: false, stock: false },
-      { id: 4, name: "Corsair Vengeance 32 Go 6000 MHz", price: 100000, img: "https://via.placeholder.com/400x300?text=DDR5+6000", sale: true, stock: true }
+    const products=[
+      {id:1,name:"Gigabyte RTX 5060 ELITE 8G",price:310000,img:"https://raw.githubusercontent.com/aimeassamoidesire-maker/nj/main/rtx5060.jpg",sale:true,stock:true},
+      {id:2,name:"MSI Optix MAG301CR2",price:315000,img:"https://raw.githubusercontent.com/aimeassamoidesire-maker/nj/main/mag301.jpg",sale:false,stock:true},
+      {id:3,name:"Intel Core i7-12700K",price:170000,img:"https://via.placeholder.com/500x300?text=i7-12700K",sale:false,stock:true},
+      {id:4,name:"ASUS RTX 4090 24GB",price:1365000,img:"https://via.placeholder.com/500x300?text=RTX+4090",sale:false,stock:false},
     ];
 
-    const grid       = document.getElementById("product-grid");
-    const cartModal  = document.getElementById("cart-modal");
-    const cartCount  = document.getElementById("cart-count");
-    const cartItemsDiv = document.getElementById("cart-items");
-    const cartTotal  = document.getElementById("cart-total");
-    let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+    const grid=document.getElementById("product-grid");
+    const cartModal=document.getElementById("cart-modal");
+    const cartCount=document.getElementById("cart-count");
+    const cartItemsDiv=document.getElementById("cart-items");
+    const cartTotal=document.getElementById("cart-total");
+    let cart=JSON.parse(localStorage.getItem("cart")||"[]");
 
-    function renderProducts () {
-      grid.innerHTML = "";
-      products.forEach(p => {
-        const card = document.createElement("div");
-        card.className = "card";
-        card.innerHTML = `
-          <div style="position:relative">
-            <img src="${p.img}" alt="${p.name}" />
-            ${!p.stock ? '<span class="badge out">OUT OF STOCK</span>' : ''}
-            ${p.sale   ? '<span class="badge sale">SALE</span>'          : ''}
+    function renderProducts(){
+      grid.innerHTML="";
+      products.forEach(p=>{
+        const card=document.createElement("div");
+        card.className="card";
+        card.innerHTML=`
+          <div class="card-header">
+            <img src="${p.img}" alt="${p.name}">
+            ${!p.stock?'<span class="badge out">Rupture</span>':''}
+            ${p.sale?'<span class="badge sale">Promo</span>':''}
           </div>
           <div class="info">
             <h3>${p.name}</h3>
-            <div class="price">${p.price.toLocaleString()} CFA</div>
-            <button class="btn" ${!p.stock ? 'disabled' : ''} onclick="addToCart(${p.id})">Ajouter au panier</button>
-          </div>
-        `;
+            <span class="price-tag">${p.price.toLocaleString()} CFA</span>
+            <button class="btn" ${!p.stock?'disabled':''} onclick="addToCart(${p.id})">Ajouter au panier</button>
+          </div>`;
         grid.appendChild(card);
       });
     }
 
-    function addToCart (id) {
-      const prod = products.find(p => p.id === id);
+    function addToCart(id){
+      const prod=products.find(p=>p.id===id);
       cart.push(prod);
       updateCart();
     }
 
-    function updateCart () {
-      localStorage.setItem("cart", JSON.stringify(cart));
-      cartCount.textContent = cart.length;
-      cartItemsDiv.innerHTML = "";
-      let total = 0;
-      cart.forEach(item => {
-        total += item.price;
-        const ci = document.createElement("div");
-        ci.className = "cart-item";
-        ci.innerHTML = `<span>${item.name}</span><span>${item.price.toLocaleString()} CFA</span>`;
-        cartItemsDiv.appendChild(ci);
-      });
-      cartTotal.textContent = `Total : ${total.toLocaleString()} CFA`;
+    function updateCart(){
+      localStorage.setItem("cart",JSON.stringify(cart));
+      cartCount.textContent=cart.length;
+      cartItemsDiv.innerHTML="";
+      let total=0;
+      cart.forEach(item=>{total+=item.price;const row=document.createElement("div");row.className="cart-item";row.innerHTML=`<span>${item.name}</span><span>${item.price.toLocaleString()} CFA</span>`;cartItemsDiv.appendChild(row);});
+      cartTotal.textContent=`Total : ${total.toLocaleString()} CFA`;
     }
 
-    // ——— Events ———
-    document.getElementById("cart-button").addEventListener("click", () => cartModal.classList.toggle("open"));
-    document.getElementById("clear-cart").addEventListener("click", () => { cart = []; updateCart(); });
-    window.addEventListener("load", () => { renderProducts(); updateCart(); });
+    document.getElementById("cart-button").addEventListener("click",()=>cartModal.classList.add("open"));
+    document.getElementById("clear-cart").addEventListener("click",()=>{cart=[];updateCart();});
+    window.addEventListener("load",()=>{renderProducts();updateCart();});
   </script>
+
+  <footer>© 2025 Bluetek – Tous droits réservés</footer>
 </body>
 </html>
